@@ -1,0 +1,47 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #e9e9e9;
+}
+
+.title {
+    background-color: #b60c24;
+    color: #fff;
+    width: 100%;
+    font-size: 1.4 em;
+    height: 30px;
+    text-align: center;
+    padding: 10px 0 0 0;
+}
+
+.thisday {
+    background-color: #ccc;
+    color: #000;
+    width: 100%;
+    font-size: 1.1 em;
+    height: 25px;
+    text-align: center;
+    padding: 5px 0 0 0;
+}
+
+.schedule-theme {
+
+}
+
+.entry-theme {
+
+}
+
+.btn {
+    float: left;
+    background-color: #b60c24;
+    align-self: auto;
+    border: none;
+    width: 70%;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+}
