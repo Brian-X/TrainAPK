@@ -17,23 +17,18 @@
     </div>
 
     <div class="schedule-theme">
-        <table>
-            <tr>
-                <th>Маршрут</th>
-                <th>Станция прибытия</th>
-                <th>Frequency</th>
-                <th>Next Arrival</th>
-                <th>Mins away</th>
-            </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-            </tr>
-            
+        <table class="table table-hover" id='employee-table'>
+            <thead>
+                <tr>
+                    <th>Маршрут</th>
+                    <th>Станция прибытия</th>
+                    <th>Frequency</th>
+                    <th>Next Arrival</th>
+                    <th>Mins away</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
         </table>
         
     </div>
@@ -45,19 +40,19 @@
         <form>
             <div class="form-group">
                 <label for="name">Маршрут</label>
-                <input class="form-control" id="employee-name-input" type="text">
+                <input class="form-control" id="name" type="text">
             </div>
             <div class="form-group">
                 <label for="destination">Станция прибытия</label>
-                <input class="form-control" id="role-input" type="text">
+                <input class="form-control" id="destination" type="text">
             </div>
             <div class="form-group">
-                <label for="FirstTrain">Первый поезд (время прибытия) [24:00]</label>
-                <input class="form-control" id="start-input" type="text">
+                <label for="firstTrain">Первый поезд (время прибытия) [24:00]</label>
+                <input class="form-control" id="firstTrain" type="text">
             </div>
             <div class="form-group">
-                <label for="Frequency">Следующий Поезд (Минут)</label>
-                <input class="form-control" id="rate-input" type="text">
+                <label for="freq">Следующий Поезд (Минут)</label>
+                <input class="form-control" id="freq" type="text">
             </div>
                 <button class="btn" id="add-btn" type="submit">Submit</button>
         </form>

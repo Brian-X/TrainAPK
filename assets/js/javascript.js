@@ -1,3 +1,5 @@
+// alert("javascriptjs");
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyBsDUxWCpLLAwB-ubkZ38scPdDCz-SSIjM",
@@ -11,44 +13,119 @@ var config = {
 
   var database = firebase.database();
 
-  database.ref().on('value', function(snap) {
-      console.log(snap.val());
-  })
+//   database.ref().on('value', function(snap) {
+//       console.log(snap.val());
+//   })
 
+//   $("#add-btn").on("click", function(event) {
+//     event.preventDefault();
 
-  //creates child each time
-  database.ref().on('child_added', function(snap){
-      addRow(snap.val().name, snap.val().destination, snap.val().firstTrain, snap.val().freq)
-  });
+//   //creates child each time
+//   database.ref().on('child_added', function(snap){
+//       addRow(snap.val().name, snap.val().destination, snap.val().firstTrain, snap.val().freq)
+//   });
 
-  //
-  function addRow(name, destination, firstTrain, freq) {
-      var diff = moment().diff(moment(firstTrain, "HH:mm"), "minutes");
-      var minsAway = (diff%freq)
+//   //
+//   function addRow(name, destination, firstTrain, freq) {
+//       var diff = moment().diff(moment(firstTrain, "HH:mm"), "minutes");
+//       var minsAway = (diff%freq)
 
-      var nextTrain = moment().add(minsAway, "minutes");
+//       var nextTrain = moment().add(minsAway, "minutes");
 
-      var newRow = $("<tr>").append( $("<td>").text(name))
-                            .append( $("<td>").text(destination))
-                            .append( $("<td>").text(freq))
-                            .append( $("<td>").text(nextTrain.format("HH:mm")))
-                            .append( $("<td>").text(minsAway))
+//       var newRow = $("<tr>").append( $("<td>").text(name))
+//                             .append( $("<td>").text(destination))
+//                             .append( $("<td>").text(freq))
+//                             .append( $("<td>").text(nextTrain.format("HH:mm")))
+//                             .append( $("<td>").text(minsAway))
 
-    $("tbody".append(newRow) )
+//     $("tbody".append(newRow) )
 
-    //pushes inputs from form to database
-    database.ref().push({
-        "TrainName": name,
-        "Destination": destination,
-        "FirstTrain": firstTrain,
-        "Frequency": freq,
+//     //pushes inputs from form to database
+//     database.ref().push({
+//         "TrainName": name,
+//         "Destination": destination,
+//         "FirstTrain": firstTrain,
+//         "Frequency": freq,
 
         
-    })
-    // console.log(name);
-    // console.log(destination);
-    // console.log(firstTrain);
-    // console.log(freq);
-    
-  };
+//     })
 
+    
+//   };
+
+//   });
+
+// 2. Button for adding Employees
+$("#add-btn").on("click", function(event) {
+    event.preventDefault();
+  
+    // Grabs user input
+    var tname = $("#name").val().trim();
+    var tdestination = $("#destination").val().trim();
+    var tfreq = $("#firstTrain").val().trim(), "HH:mm").format("X");
+    var tfreq = $("#freq").val();
+    // var tminsaway = moment($("#minsAway").val().trim(), "HH:mm").format("X");
+  
+    // Creates local "temporary" object for holding employee data
+    var newTrain = {
+      name: tname,
+      destination: tdestination,
+      firstTrain: tfirstTrain,
+      freq: tfreq
+    
+    };
+  
+    // Uploads employee data to the database
+    database.ref().push(newTrain);
+  
+    // Logs everything to console
+    console.log(newTrain.name);
+    console.log(newTrain.destination);
+    console.log(newTrain.firstTrain);
+    console.log(newTrain.freq);
+    
+  
+    // Alert
+    alert("Train successfully added");
+  
+    // Clears all of the text-boxes
+    $("#name").val("");
+    $("#destination").val("");
+    $("#firstTrain").val("");
+    $("#freq").val("");
+    
+  
+  });
+  
+  // 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
+  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+  
+    console.log(childSnapshot.val());
+  
+    // Store everything into a variable.
+    var tname = childSnapshot.val().name;
+    var tdestination = childSnapshot.val().destination;
+    var tfreq = childSnapshot.val().freq;
+    var tminsaway = childSnapshot.val().minsaway;
+  
+    // Employee Info
+    console.log(tname);
+    console.log(tdestination);
+    console.log(tfreq);
+    console.log(tminsaway);
+  
+    // Prettify the employee start
+    var empStartPretty = moment.unix(tfreq).format("MM/DD/YY");
+  
+    // Calculate the months worked using hardcore math
+    // To calculate the months worked
+    var nextTrain = moment().diff(moment.unix(tfreq, "X"), "months");
+    console.log(nextTrain);
+  
+    // Calculate the total billed rate
+    var minsaway = ((nextTrain - firstTrain) / freq) % freq;
+    console.log(minsaway);
+
+  $("#train-table > tbody").append("<tr><td>" + Name + "</td><td>" + destination + "</td><td>" +
+  freq + "</td><td>" + nextTrain + "</td><td>" + minsaway + "</td><td>");
+});

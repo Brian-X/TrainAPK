@@ -27,20 +27,26 @@ body {
     padding: 5px 0 0 0;
 }
 
-.schedule-theme {
+th {
+    padding: 5px;
+}
 
+.schedule-theme {
+    margin: 5%;
 }
 
 .entry-theme {
+    margin: 5%;
+}
 
+.form-control {
+    margin: 5px;
 }
 
 .btn {
-    float: left;
     background-color: #b60c24;
-    align-self: auto;
     border: none;
-    width: 70%;
+    /* width: 70%; */
     border-radius: 5px;
     padding: 5px;
     color: #fff;
