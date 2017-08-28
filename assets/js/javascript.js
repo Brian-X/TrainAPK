@@ -124,7 +124,7 @@ $("#add-btn").on("click", function(event) {
     var nextTrain = moment().diff(moment.unix(firstTrain, "X"), "minutes");
     console.log(nextTrain);
 
-    var now = moment.unix(Number);
+    var now = moment();
     console.log(now);
   
     // Calculate the total billed rate
