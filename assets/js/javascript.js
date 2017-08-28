@@ -62,10 +62,12 @@ $("#add-btn").on("click", function(event) {
     // Grabs user input
     var tname = $("#name").val().trim();
     var tdestination = $("#destination").val().trim();
-    var tfreq = $("#firstTrain").val().trim(), "HH:mm").format("X");
+    var tfirstTrain = $("#firstTrain").val().trim();
     var tfreq = $("#freq").val();
     // var tminsaway = moment($("#minsAway").val().trim(), "HH:mm").format("X");
-  
+  console.log(tname);
+
+
     // Creates local "temporary" object for holding employee data
     var newTrain = {
       name: tname,
@@ -106,26 +108,29 @@ $("#add-btn").on("click", function(event) {
     var tname = childSnapshot.val().name;
     var tdestination = childSnapshot.val().destination;
     var tfreq = childSnapshot.val().freq;
-    var tminsaway = childSnapshot.val().minsaway;
+    var tfirstTrain = childSnapshot.val().firstTrain;
   
     // Employee Info
     console.log(tname);
     console.log(tdestination);
     console.log(tfreq);
-    console.log(tminsaway);
+    console.log(tfirstTrain);
   
     // Prettify the employee start
-    var empStartPretty = moment.unix(tfreq).format("MM/DD/YY");
+    // var empStartPretty = moment.unix(tfreq).format("MM/DD/YY");
   
     // Calculate the months worked using hardcore math
-    // To calculate the months worked
-    var nextTrain = moment().diff(moment.unix(tfreq, "X"), "months");
+    // get info from the database.
+    var nextTrain = moment().diff(moment.unix(firstTrain, "X"), "minutes");
     console.log(nextTrain);
+
+    var now = moment.unix(Number);
+    console.log(now);
   
     // Calculate the total billed rate
     var minsaway = ((nextTrain - firstTrain) / freq) % freq;
     console.log(minsaway);
 
-  $("#train-table > tbody").append("<tr><td>" + Name + "</td><td>" + destination + "</td><td>" +
+  $("#train-table > tbody").append("<tr><td>" + name + "</td><td>" + destination + "</td><td>" +
   freq + "</td><td>" + nextTrain + "</td><td>" + minsaway + "</td><td>");
 });
