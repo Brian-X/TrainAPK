@@ -62,8 +62,8 @@ $("#add-btn").on("click", function(event) {
     // Grabs user input
     var tname = $("#name").val().trim();
     var tdestination = $("#destination").val().trim();
-    var tfirstTrain = $("#firstTrain").val().trim();
-    var tfreq = $("#freq").val();
+    var tfirstTrain = moment($("#firstTrain").val().trim(), "HH:mm").subtract(10,"years").format("X");
+    var tfreq = $("#freq").val().trim();
     // var tminsaway = moment($("#minsAway").val().trim(), "HH:mm").format("X");
   console.log(tname);
 
@@ -95,8 +95,8 @@ $("#add-btn").on("click", function(event) {
     $("#destination").val("");
     $("#firstTrain").val("");
     $("#freq").val("");
-    
-  
+
+    return false;  
   });
   
   // 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
@@ -121,16 +121,24 @@ $("#add-btn").on("click", function(event) {
   
     // Calculate the months worked using hardcore math
     // get info from the database.
-    var nextTrain = moment().diff(moment.unix(firstTrain, "X"), "minutes");
-    console.log(nextTrain);
 
-    var now = moment();
-    console.log(now);
+    var remainder = moment().subtract(moment.unix(firstTrain), "minutes") % tfreq;
+    var minsaway = tfreq - remainder;
+    var nextTrain = moment().add(minsaway, "m").format("hh:mm A");
+    
+    // var now = moment();
+    // console.log("moment: " + now);
   
-    // Calculate the total billed rate
-    var minsaway = ((nextTrain - firstTrain) / freq) % freq;
-    console.log(minsaway);
+    // // Calculate the total billed rate
+    // var minsaway = ((nextTrain - firstTrain) / freq) % freq;
+    // var remainder = moment().subtract(firstTrain)%tfreq;
+    // var minsaway = moment().subtract(remainder);
+    // var nextTrain = moment().add(minsaway, "m").format("hh:mm A");
+    console.log("remainder: " + remainder);
+    console.log("minsaway: " + minsaway);
+    console.log("nextTrain: " + nextTrain);
 
-  $("#train-table > tbody").append("<tr><td>" + name + "</td><td>" + destination + "</td><td>" +
-  freq + "</td><td>" + nextTrain + "</td><td>" + minsaway + "</td><td>");
+
+  $("#train-table > tbody").append("<tr><td>" + tname + "</td><td>" + tdestination + "</td><td>" +
+  tfreq + "</td><td>" + nextTrain + "</td><td>" + minsaway + "</td><tr>");
 });
